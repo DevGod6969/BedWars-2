@@ -1,7 +1,5 @@
-name: bedwars
-api:
-  - 3.0.0
-  - 3.20.0
+name: BedWars
+api: 4.0.0
 version: 0.1-ALPHA
-author: aaron2907
-main: aaron2907\bedwars\BedWarsLoader
+author: Koralop
+main: bedwars\Loader

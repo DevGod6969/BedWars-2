@@ -1,1 +1,1 @@
-# BedWars
+A complete BedWars plugin, for PocketMine-MP software (Api: 4.0.x)
