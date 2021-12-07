@@ -12,11 +12,6 @@ class ScoreboardManager extends Manager
     /** @var Scoreboard[] */
     public array $scoreboard = [];
 
-    public function init(?PluginBase $plugin): void
-    {
-        $plugin->getLogger()->info('d');
-    }
-
     /**
      * @param Player $player
      * @param string $title

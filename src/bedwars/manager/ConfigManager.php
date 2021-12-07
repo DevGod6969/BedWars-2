@@ -17,9 +17,9 @@ class ConfigManager extends Manager
      */
     public function init(?PluginBase $plugin): void
     {
-        $plugin->getLogger()->info('b');
-        foreach (['config.yml', 'lang/es_ES.yml'] as $file) $plugin->saveResource($file);
+        foreach (['players', 'lang'] as $directory) @mkdir($plugin->getDataFolder() . $directory);
 
+        foreach (['config.yml', 'lang/en_US.yml'] as $file) $plugin->saveResource($file);
         # Default Config
         $config = $plugin->getConfig();
 
@@ -37,6 +37,13 @@ class ConfigManager extends Manager
         return new Config($direction, $type);
     }
 
+    /**
+     * @return Config
+     */
+    public function getDefault(): Config
+    {
+        return $this->plugin->getConfig();
+    }
 
     /**
      * @return int

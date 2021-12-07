@@ -47,6 +47,15 @@ class Webhook
     }
 
     /**
+     * @param Embed $embed
+     * @return void
+     */
+    public function addEmbed(Embed $embed): void
+    {
+        $this->data["embeds"][] = $embed->getData();
+    }
+
+    /**
      * @return array
      */
     public function getData(): array

@@ -25,8 +25,8 @@ final class PlayerData
     {
         new Config(Loader::getInstance()->getDataFolder() . "players/$playerName.yml", Config::YAML, [
             'level' => 1,
-            'loot_chest' => 0,
-            'coins' => 0,
+            'gadgetsmenu_mystery_boxes' => 0,
+            'money' => 0,
             'kills' => 0,
             'wins' => 0,
             'god' => false

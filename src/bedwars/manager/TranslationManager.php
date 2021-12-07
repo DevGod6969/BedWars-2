@@ -19,7 +19,6 @@ class TranslationManager extends Manager
      */
     public function init(?PluginBase $plugin): void
     {
-        $plugin->getLogger()->info('c');
         # Config
         $config = ExtensionManager::CONFIG()->getConfig($plugin->getDataFolder() . 'lang/' . ExtensionManager::CONFIG()->default_lang . '.yml', 2);
 
@@ -63,9 +62,10 @@ class TranslationManager extends Manager
 
     /**
      * @param $identifier
+     * @param $params
      * @return array|null
      */
-    public function getArrayTranslation($identifier): array
+    public function getArrayTranslation($identifier, $params = []): array
     {
         $message = null;
 
@@ -85,7 +85,13 @@ class TranslationManager extends Manager
                 }
             }
         }
-        return $message;
+
+        $newMessage = [];
+
+        foreach ($message as $slot => $text) {
+            $newMessage[] = $this->colorize($this->replaceVars($text, $params));
+        }
+        return $newMessage;
     }
 
     /**

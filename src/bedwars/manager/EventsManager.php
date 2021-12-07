@@ -14,7 +14,6 @@ class EventsManager extends Manager
      */
     public function init(?PluginBase $plugin): void
     {
-        $plugin->getLogger()->info('a');
         $plugin->getServer()->getPluginManager()->registerEvents(new PlayerListener(), $plugin);
     }
 
