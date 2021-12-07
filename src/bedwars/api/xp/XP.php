@@ -104,7 +104,6 @@ final class XP
         $percent = round(($currentXp / $requiredXp) * 100, 1);
         $text = '&8[';
 
-        echo "$currentXp is $percent% of $requiredXp";
         for ($i = 0; ; $i++) {
             if ($i == 10) {
                 $text .= '&8]';
