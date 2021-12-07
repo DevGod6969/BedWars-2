@@ -4,11 +4,8 @@ namespace bedwars\manager;
 
 use bedwars\Loader;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
-/**
- *  @method static TranslationManager TRANSLATION()
- *  @method static ConfigManager CONFIG()
- */
 final class ExtensionManager
 {
 
@@ -19,7 +16,7 @@ final class ExtensionManager
 
     const PRIORITY_HIGH = 1;
     const PRIORITY_NORMAL = 2;
-    const PRIORITY_LOW  = 3;
+    const PRIORITY_LOW = 3;
 
     /**
      * @return bool
@@ -41,27 +38,63 @@ final class ExtensionManager
         self::$plugin = $plugin;
 
         $modules = [];
-        $files = glob(__DIR__ . '*.php');
+        $files = glob(__DIR__ . DIRECTORY_SEPARATOR . '*.php');
 
         foreach ($files as $file) {
-            require($file);
+            $fileName = basename($file, '.php');
 
-            $classArchive = '\bedwars\manager\\' . basename($file, '.php');
-            $class = new $classArchive();
+            if ($fileName != 'Manager') {
+                $classArchive = "\bedwars\manager\\$fileName";
+                $class = new $classArchive();
 
-            if ($class instanceof Manager && $class->getName() != 'Manager') {
-                $modules[$class->getPriority()] = $class;
+                if ($class instanceof Manager) {
+                    $class->name = $fileName;
+                    $modules[$class->getPriority()][] = $class;
+                    self::$modules[$class->getName()] = $class;
+                }
             }
         }
 
-        arsort($modules);
-
-        foreach ($modules as $priority => $class) {
-            $class->isEnable = true;
-            $class->plugin = self::$plugin;
-            $class->init($class->plugin);
+        foreach ([self::PRIORITY_HIGH, self::PRIORITY_NORMAL, self::PRIORITY_LOW] as $priority) {
+            foreach ($modules[$priority] as $priority => $class) {
+                $class->isEnable = true;
+                $class->plugin = self::$plugin;
+                $class->init($class->plugin);
+            }
         }
 
-        $plugin->getLogger()->info(Loader::PREFIX . 'The modules have been loaded successfully!');
+        $plugin->getLogger()->info(Loader::PREFIX . TextFormat::DARK_GREEN . 'The modules have been loaded successfully!');
+    }
+
+    /**
+     * @return ConfigManager
+     */
+    public static function CONFIG(): ConfigManager
+    {
+        return self::$modules['ConfigManager'];
+    }
+
+    /**
+     * @return TranslationManager
+     */
+    public static function TRANSLATION(): TranslationManager
+    {
+        return self::$modules['TranslationManager'];
+    }
+
+    /**
+     * @return ScoreboardManager
+     */
+    public static function SCOREBOARD(): ScoreboardManager
+    {
+        return self::$modules['ScoreboardManager'];
+    }
+
+    /**
+     * @return DiscordManager
+     */
+    public static function DISCORD(): DiscordManager
+    {
+        return self::$modules['DiscordManager'];
     }
 }

@@ -9,20 +9,30 @@ abstract class Manager
 
     /** @var bool */
     public bool $isEnable = false;
-    /** @var PluginBase */
-    public PluginBase $plugin;
+    /** @var PluginBase|null */
+    public ?PluginBase $plugin = null;
+    /** @var string */
+    public string $name;
 
-    public function init(PluginBase $plugin): void
+    public function __construct()
+    {
+        $this->name = __CLASS__;
+    }
+
+    public function init(?PluginBase $plugin): void
     {
     }
 
-    public function save(PluginBase $plugin): void
+    public function save(?PluginBase $plugin): void
     {
     }
 
     public function __destruct()
     {
-        $this->save($this->plugin);
+        if ($this->plugin != null)
+            $this->save($this->plugin);
+
+        $this->isEnable = false;
     }
 
     /**
@@ -38,6 +48,6 @@ abstract class Manager
      */
     public function getName(): string
     {
-        return __CLASS__;
+        return $this->name;
     }
 }

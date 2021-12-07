@@ -12,11 +12,12 @@ class ConfigManager extends Manager
     public string $default_lang;
 
     /**
-     * @param PluginBase $plugin
+     * @param PluginBase|null $plugin
      * @return void
      */
-    public function init(PluginBase $plugin): void
+    public function init(?PluginBase $plugin): void
     {
+        $plugin->getLogger()->info('b');
         foreach (['config.yml', 'lang/es_ES.yml'] as $file) $plugin->saveResource($file);
 
         # Default Config
@@ -35,6 +36,7 @@ class ConfigManager extends Manager
     {
         return new Config($direction, $type);
     }
+
 
     /**
      * @return int

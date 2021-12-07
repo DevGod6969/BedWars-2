@@ -1,5 +1,5 @@
 name: BedWars
 api: 4.0.0
-version: 0.1-ALPHA
+version: 0.1
 author: Koralop
 main: bedwars\Loader
