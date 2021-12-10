@@ -4,6 +4,7 @@ namespace bedwars\events;
 
 use bedwars\api\scoreboard\ScoreboardIdentifier;
 use bedwars\manager\ExtensionManager;
+use bedwars\manager\ModulesIdentifier;
 use bedwars\network\data\PlayerData;
 use bedwars\network\NetworkSession;
 use bedwars\network\player\NetworkPlayer;
@@ -40,6 +41,6 @@ class PlayerListener implements Listener
         NetworkSession::initPlayer($player);
 
         # Message
-        $event->setJoinMessage(ExtensionManager::TRANSLATION()->getMessageTranslate('player-join', ['%playerName%' => $player->getName()]));
+        $event->setJoinMessage(ExtensionManager::getModule(ModulesIdentifier::TRANSLATION_MANAGER)->getMessageTranslate('player-join', ['%playerName%' => $player->getName()]));
     }
 }

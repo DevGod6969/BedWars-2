@@ -43,7 +43,7 @@ final class ExtensionManager
         foreach ($files as $file) {
             $fileName = basename($file, '.php');
 
-            if ($fileName != 'Manager') {
+            if ($fileName != 'Manager' && $fileName != 'ModulesIdentifier') {
                 $classArchive = "\bedwars\manager\\$fileName";
                 $class = new $classArchive();
 
@@ -67,34 +67,11 @@ final class ExtensionManager
     }
 
     /**
-     * @return ConfigManager
+     * @param $name
+     * @return Manager
      */
-    public static function CONFIG(): ConfigManager
+    public static function getModule($name): Manager
     {
-        return self::$modules['ConfigManager'];
-    }
-
-    /**
-     * @return TranslationManager
-     */
-    public static function TRANSLATION(): TranslationManager
-    {
-        return self::$modules['TranslationManager'];
-    }
-
-    /**
-     * @return ScoreboardManager
-     */
-    public static function SCOREBOARD(): ScoreboardManager
-    {
-        return self::$modules['ScoreboardManager'];
-    }
-
-    /**
-     * @return DiscordManager
-     */
-    public static function DISCORD(): DiscordManager
-    {
-        return self::$modules['DiscordManager'];
+        return self::$modules[$name];
     }
 }

@@ -20,15 +20,15 @@ class TranslationManager extends Manager
     public function init(?PluginBase $plugin): void
     {
         # Config
-        $config = ExtensionManager::CONFIG()->getConfig($plugin->getDataFolder() . 'lang/' . ExtensionManager::CONFIG()->default_lang . '.yml', 2);
+        $config = ExtensionManager::getModule(ModulesIdentifier::CONFIG_MANAGER)->getConfig($plugin->getDataFolder() . 'lang/' . ExtensionManager::getModule(ModulesIdentifier::CONFIG_MANAGER)->default_lang . '.yml', 2);
 
         if (count($config->getAll()) == 0) {
-            $plugin->getLogger()->error(Loader::PREFIX . TextFormat::RED . 'The language ' . ExtensionManager::CONFIG()->default_lang . ' not found, enter an existing language!');
+            $plugin->getLogger()->error(Loader::PREFIX . TextFormat::RED . 'The language ' . ExtensionManager::getModule(ModulesIdentifier::CONFIG_MANAGER)->default_lang . ' not found, enter an existing language!');
             $plugin->onEnableStateChange(false);
             return;
         }
 
-        $plugin->getLogger()->info(Loader::PREFIX . TextFormat::DARK_GREEN . 'The ' . ExtensionManager::CONFIG()->default_lang . ' language has been registered.');
+        $plugin->getLogger()->info(Loader::PREFIX . TextFormat::DARK_GREEN . 'The ' . ExtensionManager::getModule(ModulesIdentifier::CONFIG_MANAGER)->default_lang . ' language has been registered.');
         $this->config = $config;
     }
 

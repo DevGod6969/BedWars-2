@@ -14,7 +14,7 @@ class Loader extends PluginBase
     const PREFIX = TextFormat::BOLD . TextFormat::YELLOW . 'BedWars ' . TextFormat::RESET . TextFormat::GRAY . '» ';
     const VERSION = '0.1';
     /** @var Loader|null */
-    public static ?Loader $instance = null;
+    private static ?Loader $instance = null;
 
 
     public function onEnable(): void

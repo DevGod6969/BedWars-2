@@ -3,7 +3,6 @@
 namespace bedwars\manager;
 
 use bedwars\discord\Webhook;
-use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 
